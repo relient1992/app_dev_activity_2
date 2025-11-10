@@ -1,81 +1,277 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>TUP_Infosec</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #0056b3;
-            text-align: center;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #e9ecef;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-        li:hover {
-            background: #cfd8dc;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        /* --- Responsive Design --- */
-        /* Media query for smaller screens (e.g., phones) */
-        @media (max-width: 600px) {
-            .container {
-                width: 95%;
-                padding: 15px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            li {
-                padding: 12px;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Social Dilemma — Infographics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#ff6b6b; --muted:#9aa4b2; --glass: rgba(255,255,255,0.03);
+      --max-w:1100px;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:linear-gradient(180deg,#071022 0%, #061224 100%); color:#e6eef6; -webkit-font-smoothing:antialiased}
+    .wrap{max-width:var(--max-w); margin:36px auto; padding:28px;}
+    header{display:flex;align-items:center;gap:20px}
+    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffa94d);display:flex;align-items:center;justify-content:center;font-weight:800;color:#071022}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:24px}
+    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 6px 24px rgba(2,6,23,0.6);}
+
+    /* left content */
+    .infographic{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .section{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); padding:16px;border-radius:12px}
+    .section h2{margin:0 0 8px;font-size:1.05rem}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:0.85rem}
+
+    .summary{grid-column:1 / -1}
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .timeline .event{display:flex;gap:12px;align-items:flex-start}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
+
+    .stats{display:flex;gap:10px;flex-wrap:wrap}
+    .stat{flex:1 1 120px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);text-align:center}
+    .stat strong{display:block;font-size:1.1rem}
+    .muted{color:var(--muted);font-size:0.9rem}
+
+    .section.creative-elements {
+    max-height: 400px;      /* fixed height */
+    overflow-y: auto;       /* scroll if content exceeds height */
+    padding-right: 10px;    /* prevent scrollbar from overlapping text */
+    }
+
+    /* Optimize character images */
+    .timeline .event img {
+    width: 120px;      /* fixed width */
+    height: auto;      /* maintain aspect ratio */
+    border-radius: 8px;
+    margin-top: 8px;
+    margin-right: 12px;
+    float: left;       /* image on left side of text */
+    cursor: pointer;   /* clickable pointer */
+    }
+    .timeline .event div {
+    overflow: hidden;  /* ensure text wraps correctly around the floated image */
+    }
+
+    /* right column */
+    .poster{height:220px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:12px}
+    .right-list{display:flex;flex-direction:column;gap:12px}
+    .q{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:12px;border-radius:10px}
+
+    footer{margin-top:20px;color:var(--muted);font-size:0.9rem;text-align:center}
+
+    /* responsive */
+    @media (max-width:980px){.grid{grid-template-columns:1fr}.infographic{grid-template-columns:1fr}}
+
+    /* print friendly */
+    @media print{body{background:white;color:black} .card{box-shadow:none;background:white}}
+
+    /* small icon */
+    .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
+
+    /* CTA */
+    .controls{display:flex;gap:8px;margin-top:12px}
+    .btn{background:var(--accent);border:none;padding:8px 12px;border-radius:10px;color:#071022;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* slide preview */
+    .slides{display:flex;gap:10px;overflow:auto;padding-bottom:6px}
+    .slide{min-width:220px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:10px;cursor:pointer}
+    .slide h3{margin:0 0 6px}
+    .slide img{width:100%;border-radius:8px;margin-top:6px}
+
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div class="logo">SD</div>
+      <div>
+        <h1>The Social Dilemma — Infographic Review</h1>
+        <p class="lead">A concise, visual presentation exploring the documentary <em>The Social Dilemma</em> — summary, analysis, creative elements, opinion, and course relevance.</p>
+      </div>
+    </header>
 
-    <div class="container">
-        <h1>TUP_Infosec Documentation</h1>
-        <ul>
-            <li><a href="infosec_intro.html">Infosec Intro</a></li>
-            <li><a href="infosec_description.html">Infosec Module</a></li>
-            <li><a href="InfoSec.html">InfoSec Landscape</a></li>
-            <li><a href="defense_in_depth.html">Defense in Depth</a></li>
-            <li><a href="Tls_SSL.html">Infosec TLS_SSL Description</a></li>
+    <div class="grid" style="margin-top:18px">
+      <main class="card">
+        <div class="infographic">
 
-            
+          <div class="section summary">
+            <div class="badge">Documentary · 2020 · Director: Jeff Orlowski</div>
+            <h2>Summary</h2>
+            <p>The Social Dilemma is a documentary that examines the human impact of social networking, with testimony from former employees of major tech companies. It reveals how algorithms manipulate attention, incite polarization, and are used for political and commercial ends. The film mixes interviews with dramatized vignettes to show consequences for individuals and society.</p>
+            <div class="stats" style="margin-top:12px">
+              <div class="stat"><strong>Topic</strong><div class="muted">Social, Political, Informative</div></div>
+              <div class="stat"><strong>Tone</strong><div class="muted">Warning / Investigative</div></div>
+              <div class="stat"><strong>Format</strong><div class="muted">Interviews + Drama</div></div>
+            </div>
+          </div>
 
-        </ul>
+          <div class="section">
+            <h2>Main issue</h2>
+            <p>The central issue is how social media platforms optimize for attention through algorithms which can be exploited for political influence, social manipulation, and profit. The film is at once political (platforms used in campaigns), social (effects on mental health and relationships), and informative (explains how recommendation systems work).</p>
+          </div>
+
+          <div class="section">
+            <h2>Context & Controversy</h2>
+            <p>The documentary features former tech employees explaining backend systems and design choices aimed at shaping behavior. It is mildly controversial because it frames these companies as intentionally manipulative, though many experts argue nuance is necessary: not all effects are uniform and some claims are simplified for a broad audience.</p>
+          </div>
+
+          <div class="section">
+            <h2>Key Events & Plot Analysis</h2>
+            <div class="timeline">
+              <div class="event"><div class="dot"></div><div><strong>Setup</strong> — Interviews explain the rise of attention-based business models and how algorithms learn user preferences.</div></div>
+              <div class="event"><div class="dot"></div><div><strong>Conflict</strong> — Examples of radicalization, fake news spread, and personal harm are presented with dramatized scenes of a family affected by algorithms.</div></div>
+              <div class="event"><div class="dot"></div><div><strong>Climax</strong> — The film intensifies around the consequences: election interference, youth mental health crisis, societal fragmentation.</div></div>
+              <div class="event"><div class="dot"></div><div><strong>Resolution</strong> — Calls for regulation, ethical design, awareness, and personal digital hygiene.</div></div>
+            </div>
+          </div>
+
+          <div class="section creative-elements">
+            <h2>Creative Elements</h2>
+            <p>The Social Dilemma creatively blends documentary interviews with dramatized sequences. Below are key industry characters with their visual and narrative representation:</p>
+
+            <div class="timeline">
+              <div class="event">
+                <div class="dot"></div>
+                <div>
+                  <strong>Tristan Harris</strong> – former Google design ethicist & co-founder of the Center for Humane Technology.<br>
+                  <em>Dialogue & Tone:</em> Serious, grave, morally urgent. <br>
+                  <em>Camera & Costume:</em> Close-up interviews, neutral background, professional attire.<br>
+                  <em>Symbolism:</em> Represents insider whistle-blower, authority.<br>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Tristan_Harris_crop.jpg" alt="Tristan Harris" onclick="window.open('https://en.wikipedia.org/wiki/Tristan_Harris', '_blank')">
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="dot"></div>
+                <div>
+                  <strong>Aza Raskin</strong> – former head of UX at Mozilla Labs, inventor of infinite scroll.<br>
+                  <em>Dialogue & Tone:</em> Reflective, regretful, instructive.<br>
+                  <em>Camera & Costume:</em> Medium close-ups, casual shirt, casual UX vibe.<br>
+                  <em>Symbolism:</em> Represents the design layer & ethical awareness.<br>
+                  <img src="https://techcrunch.com/wp-content/uploads/2010/12/aza-raskin.jpg" alt="Aza Raskin" onclick="window.open('https://en.wikipedia.org/wiki/Aza_Raskin', '_blank')">
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="dot"></div>
+                <div>
+                  <strong>Tim Kendall</strong> – former director of monetization at Facebook & former president of Pinterest.<br>
+                  <em>Dialogue & Tone:</em> Direct, factual, highlights business incentives.<br>
+                  <em>Camera & Costume:</em> Close-ups, corporate attire.<br>
+                  <em>Symbolism:</em> Represents business logic driving engagement algorithms.<br>
+                  <img src="https://static1.squarespace.com/static/5ee8de27ef35ad3e199431f0/6039eba239706e758226ce54/5fca579476d9fe3ad8850ac4/1743874972045/Tim%2BKendall%2BHeadshot.jpg?format=1500w" alt="Tim Kendall" onclick="window.open('https://en.wikipedia.org/wiki/Tim_Kendall', '_blank')">
+                </div>
+              </div>
+
+              <div class="event">
+                <div class="dot"></div>
+                <div>
+                  <strong>Ben (Fictional Teen)</strong> – dramatized character showing real-world impact.<br>
+                  <em>Dialogue & Tone:</em> Minimal dialogue, tense, unsettling.<br>
+                  <em>Camera & Costume:</em> Cold lighting as addiction deepens, casual clothing.<br>
+                  <em>Symbolism:</em> Human cost of algorithms & attention economy.<br>
+                  <img src="https://variety.com/wp-content/uploads/2020/10/netflix-skyler-gisondo-as-ben-in-the-social-dilemma.jpg" alt="Ben Character" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>Opinion (supported)</h2>
+            <p>The Social Dilemma exposes how social media platforms exploit human psychology to maximize engagement, often influencing behavior and attention without users realizing it. While these technologies can be manipulative, they also play a positive role in daily life—streamlining tasks like app-based ordering, personalized recommendations, and automated services. The film emphasizes the need for ethical design and proper regulation to prevent exploitation, protect mental health, and ensure technology serves society rather than just profit. Technology itself is a powerful tool, but its impact depends on how responsibly it is being developed and governed.</p>
+          </div>
+
+          <div class="section">
+            <h2>Conclusion</h2>
+            <p>The filmmaker largely succeeds: the documentary raises awareness, sparks debate about ethics and regulation, and connects technical details to social consequences. While some arguments simplify causation and the dramatizations lean toward emotional impact, the film provides a useful entry point for course discussions on media, politics, and technology.</p>
+          </div>
+
+          <div class="section">
+            <h2>Course Relevance</h2>
+            <p>If used for a media, ethics, or politics course, the film helps students understand algorithmic influence, persuasive design, and the need to evaluate sources. It is not a historical account and should not be read as exhaustive evidence — instructors should pair it with technical papers, empirical studies, and critical responses to avoid over-dramatization.</p>
+          </div>
+
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="badge">Detailed Analysis Slides</div>
+          <div class="slides" style="margin-top:10px">
+            <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
+              <h3>Slide 1: Summary & Topic</h3>
+              <p>Overview of documentary and main themes.</p>
+              <img src="https://images.unsplash.com/photo-1531497865143-7f0c5f8b0d8e?auto=format&fit=crop&w=400&q=60" alt="Summary image">
+            </div>
+
+            <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
+              <h3>Slide 2: Plot & Climax</h3>
+              <p>Key events and dramatized conflicts.</p>
+              <img src="https://images.unsplash.com/photo-1532619187600-25b9be7e06b0?auto=format&fit=crop&w=400&q=60" alt="Plot image">
+            </div>
+
+            <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/Tristan_Harris', '_blank')">
+              <h3>Slide 3: Creative Choices</h3>
+              <p>Detailed character insights & visual design.</p>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Tristan_Harris_crop.jpg" alt="Creative image">
+            </div>
+
+            <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
+              <h3>Slide 4: Course Relevance</h3>
+              <p>Application in ethics, media, and politics courses.</p>
+              <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=400&q=60" alt="Course image">
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="card">
+        <div class="poster" style="background-image:url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=60')"></div>
+
+        <div class="right-list">
+          <div class="q">
+            <strong>Is the documentary accurate?</strong>
+            <p class="muted">It reflects real concerns: algorithmic targeting and attention economy are well documented. The film simplifies some causal chains for clarity, so view it as a strong primer rather than definitive proof of every claim.</p>
+          </div>
+
+          <div class="q">
+            <strong>What points to analyze?</strong>
+            <ul style="margin:6px 0 0 18px;color:var(--muted)">
+              <li>Regulation & policy options for platforms</li>
+              <li>Design ethics & persuasive technologies</li>
+              <li>Impact on younger users and mental health</li>
+              <li>Role of misinformation and political use</li>
+            </ul>
+          </div>
+
+          <div class="q">
+            <strong>Your stance</strong>
+            <p class="muted">You observed this covers political, social and informative angles — correct. The film's insider voices make it persuasive, and it effectively argues for better design and oversight.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;color:var(--muted);font-size:0.85rem">Quick Q&A</div>
+        <div style="margin-top:8px;">
+          <div class="q"><strong>Is it controversial?</strong><p class="muted">Yes — especially among platform defenders who say it overstates intent and understates complexity.</p></div>
+        </div>
+      </aside>
+
     </div>
 
+    <footer>
+      <div class="muted">Tip: All images of characters link to Wikipedia for reference. Use slides as handouts for class discussion.</div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleNotes(){
+      document.querySelectorAll('.muted').forEach(el=>el.style.display = el.style.display === 'none' ? 'block' : 'none');
+    }
+  </script>
 </body>
 </html>
