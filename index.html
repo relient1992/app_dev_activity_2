@@ -11,24 +11,76 @@
       --bg:#0f1724; --card:#0b1220; --accent:#ff6b6b; --muted:#9aa4b2; --glass: rgba(255,255,255,0.03);
       --max-w:1100px;
     }
+
     *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:linear-gradient(180deg,#071022 0%, #061224 100%); color:#e6eef6; -webkit-font-smoothing:antialiased}
-    .wrap{max-width:var(--max-w); margin:36px 0; padding:28px;}
-    header{display:flex;align-items:center;gap:20px}
-    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffa94d);display:flex;align-items:center;justify-content:center;font-weight:800;color:#071022}
+
+    body{
+      font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;
+      margin:0;
+      background:linear-gradient(180deg,#071022 0%, #061224 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .wrap{
+      max-width:var(--max-w);
+      margin:36px auto;
+      padding:28px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .logo{
+      width:72px;
+      height:72px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#ffa94d);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#071022;
+    }
+
     h1{margin:0;font-size:1.6rem}
     p.lead{color:var(--muted);margin:6px 0 18px}
 
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:24px}
-    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 6px 24px rgba(2,6,23,0.6);}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 6px 24px rgba(2,6,23,0.6);
+    }
 
     /* left content */
-    .infographic{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .section{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); padding:16px;border-radius:12px}
+    .infographic{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .section{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:16px;
+      border-radius:12px;
+    }
+
     .section h2{margin:0 0 8px;font-size:1.05rem}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:0.85rem}
 
     .summary{grid-column:1 / -1}
+
     .timeline{display:flex;flex-direction:column;gap:12px}
     .timeline .event{display:flex;gap:12px;align-items:flex-start}
     .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
@@ -38,44 +90,44 @@
     .stat strong{display:block;font-size:1.1rem}
     .muted{color:var(--muted);font-size:0.9rem}
 
-    .section.creative-elements {
-    max-height: 400px;      /* fixed height */
-    overflow-y: auto;       /* scroll if content exceeds height */
-    padding-right: 10px;    /* prevent scrollbar from overlapping text */
+    .section.creative-elements{
+      max-height:400px;
+      overflow-y:auto;
+      padding-right:10px;
     }
 
     /* Optimize character images */
-    .timeline .event img {
-    width: 120px;      /* fixed width */
-    height: auto;      /* maintain aspect ratio */
-    border-radius: 8px;
-    margin-top: 8px;
-    margin-right: 12px;
-    float: left;       /* image on left side of text */
-    cursor: pointer;   /* clickable pointer */
-    }
-    .timeline .event div {
-    overflow: hidden;  /* ensure text wraps correctly around the floated image */
+    .timeline .event img{
+      width:120px;
+      height:auto;
+      border-radius:8px;
+      margin-top:8px;
+      margin-right:12px;
+      float:left;
+      cursor:pointer;
     }
 
+    .timeline .event div{overflow:hidden;}
+
     /* right column */
-    .poster{height:220px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:12px}
+    .poster{
+      height:220px;
+      border-radius:10px;
+      background-size:cover;
+      background-position:center;
+      margin-bottom:12px;
+    }
+
     .right-list{display:flex;flex-direction:column;gap:12px}
     .q{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:12px;border-radius:10px}
 
     footer{margin-top:20px;color:var(--muted);font-size:0.9rem;text-align:center}
 
-    /* responsive */
-    @media (max-width:980px){.grid{grid-template-columns:1fr}.infographic{grid-template-columns:1fr}}
-
-    /* print friendly */
-    @media print{body{background:white;color:black} .card{box-shadow:none;background:white}}
-
     /* small icon */
     .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
 
     /* CTA */
-    .controls{display:flex;gap:8px;margin-top:12px}
+    .controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
     .btn{background:var(--accent);border:none;padding:8px 12px;border-radius:10px;color:#071022;font-weight:700;cursor:pointer}
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
@@ -85,6 +137,40 @@
     .slide h3{margin:0 0 6px}
     .slide img{width:100%;border-radius:8px;margin-top:6px}
 
+    /* ✅ Responsive Enhancements */
+    @media (max-width:980px){
+      .grid{grid-template-columns:1fr}
+      .infographic{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start}
+      .poster{height:180px}
+    }
+
+    @media (max-width:768px){
+      .wrap{padding:20px}
+      h1{font-size:1.4rem;text-align:center}
+      h2{font-size:1.1rem;text-align:center}
+      p.lead{text-align:center}
+      .card{padding:16px}
+      .timeline .event img{width:100px}
+      .stats{justify-content:center}
+    }
+
+    @media (max-width:480px){
+      .wrap{padding:16px}
+      h1{font-size:1.25rem}
+      h2{font-size:1rem}
+      p, .muted{font-size:0.9rem}
+      .card{padding:14px;border-radius:10px}
+      .stat strong{font-size:1rem}
+      .logo{width:60px;height:60px;font-size:0.9rem}
+      .poster{height:160px}
+    }
+
+    /* print friendly */
+    @media print{
+      body{background:white;color:black}
+      .card{box-shadow:none;background:white}
+    }
   </style>
 </head>
 <body>
