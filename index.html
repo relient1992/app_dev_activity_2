@@ -1,539 +1,820 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>The Social Dilemma — Infographics</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --accent:#ff6b6b; --muted:#9aa4b2; --glass: rgba(255,255,255,0.03);
-      --max-w:1100px;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>R-AMS — Emerging Technologies Infographic (Improved)</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --muted:#363a44;
+    --shadow: 0 6px 18px rgba(15,23,42,0.08);
+    --accent-blue-start:#60a5fa;
+    --accent-blue-end:#3b82f6;
+    --accent-green-start:#34d399;
+    --accent-green-end:#10b981;
+    --accent-purple-start:#a78bfa;
+    --accent-purple-end:#7c3aed;
+    --accent-indigo-start:#6366f1;
+    --accent-indigo-end:#7c3aed;
+    --maxw:1100px;
+    --glass: rgba(255,255,255,0.85);
+  }
+
+  /* baseline */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
+    background:linear-gradient(180deg,#ffffff 0%, #f1f5f9 100%);
+    color:#111827;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:28px 18px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .container{width:100%;max-width:var(--maxw);}
+
+  /* HERO */
+  .hero{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(15,23,42,0.03);
+    overflow:hidden;
+  }
+  .hero-left{width:72px;height:72px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef2ff,#eef7ff);flex-shrink:0;}
+  .hero-title{font-size:20px;font-weight:800;margin:0}
+  .hero-sub{margin:6px 0 0;color:var(--muted);font-size:13px}
+  .hero-blurb{margin-top:10px;color:#374151;line-height:1.45;font-size:14px}
+
+  .cta{margin-left:auto}
+  .btn{
+    background:linear-gradient(90deg,var(--accent-indigo-start),var(--accent-indigo-end));
+    color:white;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600;
+    box-shadow:0 6px 18px rgba(99,102,241,0.14);transition:transform .15s ease,box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(99,102,241,0.12)}
+  .btn:active{transform:translateY(-1px)}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;}
+  @media(min-width:980px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+  /* CARD - used for main content panels (data/security/industry) */
+  .card{
+    background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(15,23,42,0.03);
+    transition:transform .18s, box-shadow .18s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(15,23,42,0.08)}
+
+  .card-top{padding:16px;color:white;display:flex;gap:12px;align-items:flex-start}
+  .icon-wrap{width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center}
+  .card-body{padding:16px;background:var(--card);color:#374151}
+  .card-body ul{padding-left:18px;margin:8px 0 12px;color:#374151}
+  .card-example{background:#f8fafc;border-radius:10px;padding:10px;border:1px solid rgba(15,23,42,0.03);font-size:13px;color:#374151}
+
+  /* DATA SCIENCE IMPROVED LAYOUT (tabs + mini-cards) */
+  .dswrap{display:flex;flex-direction:column;gap:12px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{
+    padding:8px 12px;border-radius:999px;background:transparent;border:1px solid rgba(15,23,42,0.06);cursor:pointer;font-weight:600;font-size:13px;color:#111827;
+    transition:all .16s;
+  }
+  .tab.active{background:linear-gradient(90deg,var(--accent-blue-start),var(--accent-blue-end));color:white;border-color:transparent;box-shadow:0 8px 20px rgba(59,130,246,0.12)}
+  .tab:focus{outline:2px solid rgba(59,130,246,0.18)}
+
+  /* mini-grid cards used inside each tab (two-column layout) */
+  .mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+  @media(max-width:640px){ .mini-grid{grid-template-columns:1fr} }
+
+  .mini-card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.92));
+    border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(15,23,42,0.03);
+  }
+  .mini-icon{width:40px;height:40;border-radius:8px;background:rgba(99,102,241,0.08);display:flex;align-items:center;justify-content:center}
+  .mini-title{font-weight:700;font-size:14px;margin:0}
+  .mini-desc{font-size:13px;color:#374151;margin:4px 0 0 0}
+
+  .flow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .flow .step{background:#fff;border-radius:8px;padding:8px 12px;border:1px dashed rgba(15,23,42,0.06);font-weight:600;font-size:13px;color:#374151}
+  .arrow{font-weight:800;color:rgba(15,23,42,0.35)}
+
+  .insight{
+    margin-top:10px;border-radius:10px;padding:12px;background:linear-gradient(90deg, rgba(59,130,246,0.08), rgba(124,58,237,0.06));
+    border:1px solid rgba(59,130,246,0.08);color:#0f172a;font-weight:600;
+  }
+
+  .lit-list{margin-top:8px;font-size:13px;color:#374151}
+  .lit-list a{color:var(--accent-indigo-start);text-decoration:underline}
+
+  .collapse{margin-top:8px}
+  .collapse summary{font-weight:700;cursor:pointer;padding:8px;list-style:none;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:linear-gradient(180deg,#fff,#fbfdff)}
+  .collapse[open] summary{background:linear-gradient(90deg,var(--accent-blue-start),var(--accent-blue-end));color:white;border-color:transparent}
+  .collapse .content{padding:10px 8px;background:transparent;border-radius:8px;font-size:13px;color:#374151}
+
+  /* small blocks grid (summary area) - we will use summary-card instead of card for these */
+  .small-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:12px}
+  @media(min-width:980px){ .small-grid{grid-template-columns:repeat(3,1fr)} }
+
+  .footer{margin-top:20px;text-align:center;color:var(--muted);font-size:13px}
+
+  /* Animations */
+  .fade-up{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+  .fade-up.show{opacity:1;transform:none}
+  .fade-scale{transform:scale(.98);transition:transform .25s}
+  .fade-scale.show{transform:none}
+
+  /* responsive tweaks */
+  @media(max-width:640px){
+    .hero{flex-direction:column;align-items:flex-start}
+    .cta{margin-left:0;width:100%}
+    .btn{width:100%}
+  }
+
+  /* -------------------------
+     Additions: equal-height mini-cards
+     and description line-clamp
+     (appended — do not remove existing rules)
+     ------------------------- */
+
+  /* Force mini-grid rows to be uniform height so mini-cards align visually row-by-row */
+  .mini-grid {
+    grid-auto-rows: 1fr;
+  }
+
+  /* Make each mini-card fill its grid cell and layout content vertically */
+  .mini-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  /* Allow the description to take remaining vertical space and clamp long text */
+  .mini-desc {
+    flex: 1 1 auto;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* show up to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Ensure titles remain tidy */
+  .mini-title { margin: 0 0 6px 0; line-height: 1.15; }
+
+  /* Keep flow area visual separation consistent */
+  .flow { margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+  /* Keep the tabbed cards readable at larger viewports */
+  @media(min-width:900px){
+    .card-body {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
+  }
 
-    *{box-sizing:border-box}
+  /* -------------------------
+     Summary-card: isolated styles (Option A)
+     These replace the small-grid's use of .card/.card-body
+     ------------------------- */
 
-    body{
-      font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;
-      margin:0;
-      background:linear-gradient(180deg,#071022 0%, #061224 100%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-    }
+  /* Basic visual style similar to .card but separate class so no layout bleed */
+  .summary-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(15,23,42,0.03);
+    overflow: visible;
+  }
 
-    .wrap{
-      max-width:var(--max-w);
-      margin:36px 0;
-      padding:28px;
-    }
+  /* content wrapper for summary cards */
+  .summary-body {
+    padding: 16px;
+    color: #374151;
+    display: block;
+    min-height: 0;
+  }
 
-    header{
+  /* equal column layout on wide screens for summary cards */
+  @media(min-width:980px){
+    .small-grid {
       display:flex;
-      align-items:center;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .logo{
-      width:72px;
-      height:72px;
-      border-radius:12px;
-      background:linear-gradient(135deg,var(--accent),#ffa94d);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      color:#071022;
-    }
-
-    h1{margin:0;font-size:1.6rem}
-    p.lead{color:var(--muted);margin:6px 0 18px}
-
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 360px;
-      gap:24px;
-    }
-
-    .card{
-      background:var(--card);
-      border-radius:14px;
-      padding:18px;
-      box-shadow:0 6px 24px rgba(2,6,23,0.6);
-    }
-
-    /* left content */
-    .infographic{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
       gap:18px;
+      align-items:flex-start;
+    }
+    .small-grid .summary-card {
+      flex: 1 1 0%;
+      min-width: 0; /* allow inner content to shrink/wrap correctly */
     }
 
-    .section{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      padding:16px;
-      border-radius:12px;
+    /* allow text to use the card's full width (remove earlier max-width clamping) */
+    .small-grid .summary-body p,
+    .small-grid .summary-body ul {
+      max-width: none;
+      margin: 0 0 8px 0;
+      line-height: 1.45;
     }
 
-    .section h2{margin:0 0 8px;font-size:1.05rem}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:0.85rem}
-
-    .summary{grid-column:1 / -1}
-
-    .timeline{display:flex;flex-direction:column;gap:12px}
-    .timeline .event{display:flex;gap:12px;align-items:flex-start}
-    .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
-
-    .stats{display:flex;gap:10px;flex-wrap:wrap}
-    .stat{flex:1 1 120px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);text-align:center}
-    .stat strong{display:block;font-size:1.1rem}
-    .muted{color:var(--muted);font-size:0.9rem}
-
-    .section.creative-elements{
-      max-height:400px;
-      overflow-y:auto;
-      padding-right:10px;
+    .small-grid .summary-body h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
     }
+  }
 
-    /* Optimize character images */
-    .timeline .event img{
-      width:120px;
-      height:auto;
-      border-radius:8px;
-      margin-top:8px;
-      margin-right:12px;
-      float:left;
-      cursor:pointer;
-    }
+  /* stacked (mobile) behavior for summary cards - keep consistent spacing */
+  @media(max-width:979px){
+    .small-grid { display:block; }
+    .small-grid .summary-card { margin-bottom:12px; }
+  }
 
-    .timeline .event div{overflow:hidden;}
+  /* fallback small-grid specificity (keeps existing .card usage safe if any remain)
+     these are lower-risk safety nets — but prefer using summary-card in HTML */
+  .small-grid .card {
+    align-self: start;
+  }
+  .small-grid .card-body {
+    min-height: 0;
+    display: block;
+    padding: 16px;
+  }
 
-    /* right column */
-    .poster{
-      height:220px;
-      border-radius:10px;
-      background-size:cover;
-      background-position:center;
-      margin-bottom:12px;
-    }
+  /* readability helpers for tab panels and mini-cards */
+  .mini-card .mini-desc { color: #374151; }
+  .insight { margin-top:10px; }
+</style>
 
-    .right-list{display:flex;flex-direction:column;gap:12px}
-    .q{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:12px;border-radius:10px}
-
-    footer{margin-top:20px;color:var(--muted);font-size:0.9rem;text-align:center}
-
-    /* small icon */
-    .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
-
-    /* CTA */
-    .controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-    .btn{background:var(--accent);border:none;padding:8px 12px;border-radius:10px;color:#071022;font-weight:700;cursor:pointer}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-
-    /* slide preview */
-    .slides{display:flex;gap:10px;overflow:auto;padding-bottom:6px}
-    .slide{min-width:220px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:10px;cursor:pointer}
-    .slide h3{margin:0 0 6px}
-    .slide img{width:100%;border-radius:8px;margin-top:6px}
-
-    /* ✅ Responsive Enhancements */
-    @media (max-width:980px){
-      .grid{grid-template-columns:1fr}
-      .infographic{grid-template-columns:1fr}
-      header{flex-direction:column;align-items:flex-start}
-      .poster{height:180px}
-    }
-
-    @media (max-width:768px){
-      .wrap{padding:20px}
-      h1{font-size:1.4rem;text-align:center}
-      h2{font-size:1.1rem;text-align:center}
-      p.lead{text-align:center}
-      .card{padding:16px}
-      .timeline .event img{width:100px}
-      .stats{justify-content:center}
-    }
-
-    @media (max-width:480px){
-      .wrap{padding:16px}
-      h1{font-size:1.25rem}
-      h2{font-size:1rem}
-      p, .muted{font-size:0.9rem}
-      .card{padding:14px;border-radius:10px}
-      .stat strong{font-size:1rem}
-      .logo{width:60px;height:60px;font-size:0.9rem}
-      .poster{height:160px}
-    }
-
-    /* print friendly */
-    @media print{
-      body{background:white;color:black}
-      .card{box-shadow:none;background:white}
-    }
-  </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">SD</div>
-      <div>
-        <h1>The Social Dilemma — Infographic Review</h1>
-        <p class="lead">A concise, visual presentation exploring the documentary <em>The Social Dilemma</em> — summary, analysis, creative elements, opinion, and course relevance.</p>
+  <main class="container" role="main">
+    <!-- HERO -->
+    <section class="hero fade-up" id="hero">
+      <div class="hero-left" aria-hidden="true">
+        <svg class="sparkle" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+          <path d="M12 2l1.8 3.6L17 7l-3.2 1.4L12 12l-1.8-3.6L7 7l3.2-1.4L12 2z" fill="#7c3aed" opacity="0.95"/>
+          <circle cx="19" cy="5" r="2" fill="#60a5fa" opacity="0.95"/>
+        </svg>
       </div>
-    </header>
 
-    <div class="grid" style="margin-top:18px">
-      <main class="card">
-        <div class="infographic">
+      <div>
+        <h1 class="hero-title">Integration of Data Science, Cybersecurity & Industry 4.0</h1>
+        <div class="hero-sub">A Case Study: R-AMS — Recruitment & Applicant Management System for XBP Global Company</div>
+        <p class="hero-blurb">This infographic presents concise, presentation-friendly visuals and concrete examples showing how R-AMS used Data Science, Cybersecurity, and Industry 4.0 to modernize recruitment processes — reducing errors and speeding decisions.</p>
+      </div>
 
-          <div class="section summary">
-            <div class="badge">Documentary · 2020 · Director: Jeff Orlowski</div>
-              <p class="muted" style="margin-top:8px;">
-                The director is best known for documentaries that explore the technology,humanity and the environment. 
-                Before <em>The Social Dilemma</em>, he directed <em>Chasing Ice</em> (2012) and <em>Chasing Coral</em> (2017), both award-winning environmental films. 
-                His works are known for emotional storyteling, awesome visuals, and scientific insight to raise awareness about global issues.
-              </p>
-            <h2>Summary</h2>
-            <p>
-              <strong>The Social Dilemma</strong> is a documentary that analyze the human impact of social media, with testimony from former employees of major tech companies. 
-              They reveals how algorithms manipulate attention, incite polarization, and are used for political and commercial ends. 
-              The documentary emphasize the interviews and dramatized scenes to show the social and psychological consequences of technology on individuals and society.
-            </p>
+      <div class="cta">
+        <button class="btn" onclick="document.getElementById('data').scrollIntoView({behavior:'smooth'})">View Data Science</button>
+      </div>
+    </section>
 
+    <!-- CORE TECHNOLOGIES -->
+    <section class="grid" aria-label="Core technologies">
+      <!-- Data Science (IMPROVED) -->
+      <article class="card fade-up" id="data">
+        <div class="card-top" style="background:linear-gradient(135deg,var(--accent-blue-start),var(--accent-blue-end));">
+          <div class="icon-wrap" aria-hidden="true">
+            <!-- bar-chart icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="11" width="3" height="9" rx="1" fill="#fff"/>
+              <rect x="9" y="7" width="3" height="13" rx="1" fill="#fff"/>
+              <rect x="15" y="4" width="3" height="16" rx="1" fill="#fff"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Data Science (Core)</h3>
+            <div style="font-size:13px;opacity:.95">Transforms applicant records into actionable insights through validation, aggregation, and visual dashboards.</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:6px">Click a tab below to explore Uses, Benefits, Literature, Observations, and Evaluation.</div>
+          </div>
+        </div>
 
+        <div class="card-body">
+          <div class="dswrap">
+            <!-- Tabs -->
+            <div class="tabs" role="tablist" aria-label="Data Science sections">
+              <button class="tab active" data-tab="uses" role="tab" aria-selected="true">Uses & Functions</button>
+              <button class="tab" data-tab="benefits" role="tab">Importance & Benefits</button>
+              <button class="tab" data-tab="lit" role="tab">Literature</button>
+              <button class="tab" data-tab="obs" role="tab">Observations</button>
+              <button class="tab" data-tab="eval" role="tab">Surveys & Evaluation</button>
+            </div>
 
-            <div class="stats" style="margin-top:12px">
-              <div class="stat">
-                <strong>Topic</strong>
-                <div class="muted">Social, Political, Informative</div>
+            <!-- Tab content areas -->
+            <div class="tab-content" id="uses" role="tabpanel" style="display:block;margin-top:10px">
+              <!-- mini cards -->
+              <div class="mini-grid" aria-hidden="false">
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="6" height="12" rx="1" fill="#60a5fa"/></svg>
+                  </div>
+                  <div>
+                    <p class="mini-title">CSV Bulk & Validation</p>
+                    <p class="mini-desc">PapaParse-based ingestion with template enforcement to avoid malformed or duplicate records.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true" style="background:rgba(59,130,246,0.08)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/></svg>
+                  </div>
+                  <div>
+                    <p class="mini-title">KPI Dashboards</p>
+                    <p class="mini-desc">Chart.js visualizations for hire rate, time-to-hire, and source performance for quick decisions.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true" style="background:rgba(99,102,241,0.06)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/></svg>
+                  </div>
+                  <div>
+                    <p class="mini-title">Trend Analysis</p>
+                    <p class="mini-desc">Identify peak application days, channel effectiveness, and time-to-hire bottlenecks.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true" style="background:rgba(16,185,129,0.06)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" fill="#10b981"/></svg>
+                  </div>
+                  <div>
+                    <p class="mini-title">Recruiter Metrics</p>
+                    <p class="mini-desc">Track handled applicants, conversion rates, and workload distribution per recruiter.</p>
+                  </div>
+                </div>
               </div>
-              <div class="stat">
-                <strong>Tone</strong>
-                <div class="muted">Warning / Investigative</div>
-              </div>
-              <div class="stat">
-                <strong>Format</strong>
-                <div class="muted">Interviews + Drama</div>
+
+              <!-- flow -->
+              <div class="flow" aria-hidden="false">
+                <div class="step">Input (Forms / CSV)</div><div class="arrow">→</div>
+                <div class="step">Validation & Clean</div><div class="arrow">→</div>
+                <div class="step">Store (DB)</div><div class="arrow">→</div>
+                <div class="step">Analyze (APIs)</div><div class="arrow">→</div>
+                <div class="step">Dashboard → HR Action</div>
               </div>
             </div>
-          </div>
 
-          <div class="section">
-            <h2>Main issue</h2>
-            <p>The central issue is how social media platforms optimize for attention through algorithms which can be exploited for political influence,social manipulation and profit. The film is at once political (platforms used in campaigns),social (effects on mental health and relationships) and informative (explains how recommendation systems work).</p>
-          </div>
+            <div class="tab-content" id="benefits" role="tabpanel" style="display:none;margin-top:10px">
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v7l5 2" stroke="#3b82f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Accuracy & Consistency</p>
+                    <p class="mini-desc">Validation rules prevent duplicates and enforce required fields for higher data quality.</p>
+                  </div>
+                </div>
 
-          <div class="section">
-            <h2>Context & Controversy</h2>
-            <p>The documentary features former tech employees explaining backend systems and design choices aimed at shaping behavior.It is controversial because it frames these companies as intentionally manipulative but not all effects are uniform and some claims are simplified for a broad audience.</p>
-          </div>
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="#10b981" stroke-width="1.6"/></svg></div>
+                  <div>
+                    <p class="mini-title">Faster Decisions</p>
+                    <p class="mini-desc">Real-time insights surface bottlenecks so HR can respond quickly.</p>
+                  </div>
+                </div>
 
-          <div class="section">
-            <h2>Key Events & Plot Analysis</h2>
-            <div class="timeline">
-              <div class="event"><div class="dot"></div><div><strong>Setup</strong> — Interviews explain the rise of attention based business models and how algorithms learn user preferences. They also emphasize that each user has unique (preferences) from the way of browsing and searching. </div></div>
-              <div class="event"><div class="dot"></div><div><strong>Conflict</strong> — Examples of radicalization, spread of fake news, and personal harm are presented with dramatized scenes of a family affected by algorithms.</div></div>
-              <div class="event"><div class="dot"></div><div><strong>Climax</strong> — The film intensifies around the consequences; election interference, youth mental health crisis, sociaty manipulation.</div></div>
-              <div class="event"><div class="dot"></div><div><strong>Resolution</strong> — Calls for regulation, ethical design, awareness and personal digital hygiene.</div></div>
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="6" rx="1" fill="#7c3aed" opacity="0.12"/></svg></div>
+                  <div>
+                    <p class="mini-title">Resource Allocation</p>
+                    <p class="mini-desc">Data helps distribute workloads and prioritize roles with highest yield.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#3b82f6" stroke-width="1.6"/></svg></div>
+                  <div>
+                    <p class="mini-title">Transparency</p>
+                    <p class="mini-desc">KPIs and historical comparisons support audits and strategy reviews.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="insight" aria-hidden="false">Key Insight: Implementing dashboards and validated data ingestion reduced manual reporting time and increased recruiter accountability — enabling hr managers to act on trends within minutes, not hours.</div>
             </div>
-          </div>
 
-          <div class="section creative-elements">
-            <h2>Creative Elements</h2>
-            <p>The Social Dilemma creatively blends documentary interviews with dramatized sequences. Below are key industry characters with their visual and narrative representation:</p>
+            <div class="tab-content" id="lit" role="tabpanel" style="display:none;margin-top:10px">
+              <p style="margin:0 0 8px 0;color:#374151;line-height:1.45">Selected literature from Google Scholar and peer-reviewed sources supporting Data Science use in HR:</p>
 
-            <div class="timeline">
-              <div class="event">
-                <div class="dot"></div>
-                <div>
-                  <strong>Tristan Harris</strong> – former Google design ethicist & co-founder of the Center for Humane Technology.<br>
-                  <em>Dialogue & Tone:</em> Serious,persuasive. <br>
-                  <em>Camera & Costume:</em> Close-up interviews,neutral background,professional attire.<br>
-                  <em>Symbolism:</em> Represents insider whistle blower, authority.<br>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Tristan_Harris_crop.jpg" alt="Tristan Harris" onclick="window.open('https://en.wikipedia.org/wiki/Tristan_Harris', '_blank')">
-                </div>
+              <div class="lit-list">
+                <div><strong>Bansal (2023)</strong> — A study of Human Resource Digital Transformation (HRDT): digital tools improve process reliability and innovation. <a href="https://www.sciencedirect.com/science/article/pii/S0148296322010761" target="_blank" rel="noopener">ScienceDirect</a></div>
+                <div style="margin-top:6px"><strong>Mahmoud et al. (2025)</strong> — Impact of digital HRM on HR efficiency and agility. <a href="https://link.springer.com/article/10.1007/s43621-025-01713-9" target="_blank" rel="noopener">Springer</a></div>
+                <div style="margin-top:6px"><strong>Krishna &amp; Verma (2025)</strong> — HR analytics' adoption and strategic effects. <a href="https://www.researchgate.net/publication/393109498" target="_blank" rel="noopener">ResearchGate</a></div>
+                <div style="margin-top:6px"><strong>Rahadi et al. (2025)</strong> — Digital HR tools in smart workspaces (implementation lessons). <a href="https://jtmt.utem.edu.my/jtmt/article/view/6105" target="_blank" rel="noopener">JTMT</a></div>
+                <div style="margin-top:6px"><strong>Ruiz, Marín &amp; Benítez (2024)</strong> — Strategic digital HR and firm performance. <a href="https://doi.org/10.1016/j.im.2024.103966" target="_blank" rel="noopener">Information & Management (DOI)</a></div>
               </div>
 
-              <div class="event">
-                <div class="dot"></div>
-                <div>
-                  <strong>Aza Raskin</strong> – former head of UX at Mozilla Labs, inventor of infinite scroll.<br>
-                  <em>Dialogue & Tone:</em> Reflective,regretful,instructive.<br>
-                  <em>Camera & Costume:</em> Medium close-ups,casual shirt,casual UX vibe.<br>
-                  <em>Symbolism:</em> Represents the design layer & ethical awareness.<br>
-                  <img src="https://techcrunch.com/wp-content/uploads/2010/12/aza-raskin.jpg" alt="Aza Raskin" onclick="window.open('https://en.wikipedia.org/wiki/Aza_Raskin', '_blank')">
+              <details class="collapse" style="margin-top:10px">
+                <summary>Show short literature notes</summary>
+                <div class="content">
+                  <strong>Bansal (2023):</strong> emphasizes organizational alignment and digital readiness as critical for successful HR digital transformation.<br><br>
+                  <strong>Mahmoud et al. (2025):</strong> reports measurable efficiency gains when HR systems adopt analytics and centralized workflows.<br><br>
+                  <strong>Krishna &amp; Verma (2025):</strong> reviews analytics adoption and points out visualization & KPI tracking as key adoption drivers.
                 </div>
-              </div>
+              </details>
+            </div>
 
-              <div class="event">
-                <div class="dot"></div>
-                <div>
-                  <strong>Tim Kendall</strong> – former director of monetization at Facebook & former president of Pinterest.<br>
-                  <em>Dialogue & Tone:</em> Direct,factual,highlights business incentives.<br>
-                  <em>Camera & Costume:</em> Close-ups,corporate attire.<br>
-                  <em>Symbolism:</em> Represents business logic driving engagement algorithms.<br>
-                  <img src="https://static1.squarespace.com/static/5ee8de27ef35ad3e199431f0/6039eba239706e758226ce54/5fca579476d9fe3ad8850ac4/1743874972045/Tim%2BKendall%2BHeadshot.jpg?format=1500w" alt="Tim Kendall" onclick="window.open('https://en.wikipedia.org/wiki/Tim_Kendall', '_blank')">
-                </div>
-              </div>
+            <div class="tab-content" id="obs" role="tabpanel" style="display:none;margin-top:10px">
+              <ul>
+                <li>Data quality is the foundation — validation rules during bulk upload greatly reduce downstream errors.</li>
+                <li>Dashboards increase stakeholder engagement when KPIs align to HR goals (time-to-hire, yield rate, recruiter throughput).</li>
+                <li>User training and iterative UAT are critical: KPIs and visuals must reflect HR workflows to be actionable.</li>
+              </ul>
+            </div>
 
-              <div class="event">
-                <div class="dot"></div>
-                <div>
-                  <strong>Ben (Fictional Teen)</strong> – dramatized character showing real-world impact.<br>
-                  <em>Dialogue & Tone:</em> Minimal dialogue,tense.<br>
-                  <em>Camera & Costume:</em> Cold lighting as addiction deepens,casual clothing.<br>
-                  <em>Symbolism:</em> Human cost of algorithms & attention economy.<br>
-                  <img src="https://variety.com/wp-content/uploads/2020/10/netflix-skyler-gisondo-as-ben-in-the-social-dilemma.jpg" alt="Ben Character" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
-                </div>
+            <div class="tab-content" id="eval" role="tabpanel" style="display:none;margin-top:10px">
+              <ul>
+                <li><strong>User survey (Likert):</strong> Rate dashboard usefulness, ease of use, and decision impact (1–5 scale).</li>
+                <li><strong>Efficiency metric:</strong> Measure average time-to-generate reports before vs after R-AMS deployment.</li>
+                <li><strong>Qualitative UAT:</strong> Short interviews with HR staff to refine KPIs, chart types, and filters.</li>
+                <li><strong>Adoption tracking:</strong> Log frequency of dashboard views and CSV bulk uploads to monitor adoption and identify training needs.</li>
+              </ul>
+
+              <div class="card-example" style="margin-top:10px">
+                <strong>Example:</strong> Server-side aggregation (PHP REST APIs) + client Chart.js rendering lets HR spot bottlenecks in seconds instead of hours.
               </div>
             </div>
-          </div>
 
-          <div class="section">
-            <h2>Opinion (supported)</h2>
-            <p>The Social Dilemma exposes how social media exploit human psychology to maximize engagement, often influencing behavior and attention without users realizing it.We know that these technologies can be manipulative but they also play a positive role in daily life streamlining tasks like application based ordering, personalized recommendations and automated services. The film emphasizes the need of ethical design and proper regulation to prevent exploitation, protect mental health and ensure technology serves society rather than just profit. The Technology itself is a powerful tool but its impact depends on how responsibly it is being developed and governed.</p>
           </div>
+        </div>
+      </article>
 
-          <div class="section">
-            <h2>Conclusion</h2>
-            <p>The director succeeds in raising awareness about technology affects society.The documentary encourage discussions on ethics, regulation, and the impact of social media. Although some parts simplify complex issues and use emotional scenes, it still serves as a strong starting point for learning about the link between technology, media, and human behavior.</p>
+      <!-- Cybersecurity card (unchanged layout, content retained) -->
+      <article class="card fade-up" id="security">
+        <div class="card-top" style="background:linear-gradient(135deg,var(--accent-green-start),var(--accent-green-end));">
+          <div class="icon-wrap" aria-hidden="true">
+            <!-- shield icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v5c0 5-3.6 9.7-7 11-3.4-1.3-7-6-7-11V5l7-3z" fill="#fff"/></svg>
           </div>
-
-          <div class="section">
-            <h2>Course Relevance</h2>
-            <p>The film The Social Dilemma is highly relevant to the field of Information Systems, as it explores the deep relationship between technology, human behavior, and ethical system design.
-            It highlights how algorithms and interface features are intentionally built to capture user attention, influencing decisions, emotions, and even social interactions.
-            <br>
-            While technology can create harmful effects when driven by profit or manipulation, it can also lead to efficient, user centered, and socially beneficial systems when designed with transparency,empathy and regulation in mind.
-            The film reminds future IS professionals that ethical innovation and human-centered design are just as vital as technical proficiency in building sustainable and responsible digital systems.
-            </p>
+          <div>
+            <h3>Cybersecurity (Core)</h3>
+            <div style="font-size:13px;opacity:.95">Layered protection across authentication, authorization, input sanitization, and logging for applicant data.</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:6px">Click a tab below to explore Uses, Benefits, Literature, Observations, and Evaluation.</div>
           </div>
-
         </div>
 
-        <div class="slides" style="margin-top:10px">
+        <div class="card-body">
+          <div class="dswrap">
+            <!-- Tabs -->
+            <div class="tabs" role="tablist" aria-label="Cybersecurity sections">
+              <button class="tab active" data-tab="cs-uses" role="tab" aria-selected="true">Uses & Functions</button>
+              <button class="tab" data-tab="cs-benefits" role="tab">Importance & Benefits</button>
+              <button class="tab" data-tab="cs-lit" role="tab">Literature</button>
+              <button class="tab" data-tab="cs-obs" role="tab">Observations</button>
+              <button class="tab" data-tab="cs-eval" role="tab">Surveys & Evaluation</button>
+            </div>
 
-          <!-- Slide 1: Summary  -->
-          <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/Tristan_Harris', '_blank')">
-            <h3>1: Summary</h3>
-            <p>
-              The film exposes how social media platforms exploit human psychology to maximize engagement,
-              using algorithms that shape what users see and think.
-            </p>
+            <!-- Tab content areas -->
+            <div class="tab-content" id="cs-uses" role="tabpanel" style="display:block;margin-top:10px">
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 11c1.657 0 3-1.343 3-3V5a3 3 0 10-6 0v3c0 1.657 1.343 3 3 3z" fill="#10b981"/></svg></div>
+                  <div>
+                    <p class="mini-title">Authentication & Encryption</p>
+                    <p class="mini-desc">Password hashing, secure sessions, and encryption protect credentials and sensitive applicant data.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="6" rx="1" fill="#34d399"/></svg></div>
+                  <div>
+                    <p class="mini-title">Role-Based Access Control (RBAC)</p>
+                    <p class="mini-desc">Enforces least privilege—different views and actions for HR Staff vs HR Managers to prevent misuse.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Input Sanitization</p>
+                    <p class="mini-desc">Prepared statements and input validation to prevent SQL injection and malformed entries.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" fill="#60a5fa"/></svg></div>
+                  <div>
+                    <p class="mini-title">Audit & Logging</p>
+                    <p class="mini-desc">Comprehensive logs (login attempts, CRUD actions) enable traceability and forensics.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow" aria-hidden="false">
+                <div class="step">Threat / Access</div><div class="arrow">→</div>
+                <div class="step">Authenticate</div><div class="arrow">→</div>
+                <div class="step">Authorize (RBAC)</div><div class="arrow">→</div>
+                <div class="step">Sanitize & Process</div><div class="arrow">→</div>
+                <div class="step">Log & Monitor</div><div class="arrow">→</div>
+                <div class="step">Respond / Audit</div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="cs-benefits" role="tabpanel" style="display:none;margin-top:10px">
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Confidentiality & Integrity</p>
+                    <p class="mini-desc">Protects applicant personal data and ensures records are not tampered with.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#3b82f6" stroke-width="1.6"/></svg></div>
+                  <div>
+                    <p class="mini-title">Accountability</p>
+                    <p class="mini-desc">Audit trails show who did what and when, supporting compliance and dispute resolution.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="6" rx="1" fill="#7c3aed" opacity="0.12"/></svg></div>
+                  <div>
+                    <p class="mini-title">Risk Reduction</p>
+                    <p class="mini-desc">Prevents breaches, reduces legal and reputational risk, and protects company assets.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v7l5 2" stroke="#3b82f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Operational Resilience</p>
+                    <p class="mini-desc">Monitoring and recovery processes support system availability under attack or failure.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="insight">Key Insight: Enforcing RBAC, strong hashing, and audit logs increases trust in digital HR systems and simplifies compliance reporting.</div>
+            </div>
+
+            <div class="tab-content" id="cs-lit" role="tabpanel" style="display:none;margin-top:10px">
+              <p style="margin:0 0 8px 0;color:#374151;line-height:1.45">Selected literature relevant to cybersecurity and systemic digital HR adoption (Google Scholar / peer-reviewed):</p>
+
+              <div class="lit-list">
+                <div><strong>Bansal (2023)</strong> — emphasizes governance and organizational readiness, which are essential for secure HR digital transformation. <a href="https://www.sciencedirect.com/science/article/pii/S0148296322010761" target="_blank" rel="noopener">ScienceDirect</a></div>
+                <div style="margin-top:6px"><strong>Mahmoud et al. (2025)</strong> — notes that centralized digital HRM systems improve process control and operational agility, which support security practices. <a href="https://link.springer.com/article/10.1007/s43621-025-01713-9" target="_blank" rel="noopener">Springer</a></div>
+                <div style="margin-top:6px"><strong>Rahadi et al. (2025)</strong> — implementation lessons for digital HR tools that can affect secure deployment in smart workspaces. <a href="https://jtmt.utem.edu.my/jtmt/article/view/6105" target="_blank" rel="noopener">JTMT</a></div>
+                <div style="margin-top:6px"><strong>Ruiz, Marín &amp; Benítez (2024)</strong> — strategic frameworks for digital HR that include governance and control mechanisms. <a href="https://doi.org/10.1016/j.im.2024.103966" target="_blank" rel="noopener">Information & Management (DOI)</a></div>
+              </div>
+
+              <details class="collapse" style="margin-top:10px">
+                <summary>Show short literature notes</summary>
+                <div class="content">
+                  <strong>Bansal (2023):</strong> governance, training, and organizational readiness are critical to both adoption and maintaining secure HR systems.<br><br>
+                  <strong>Mahmoud et al. (2025):</strong> centralized systems provide better control over processes, which can facilitate security policy enforcement.<br><br>
+                  <strong>Rahadi et al. (2025):</strong> highlights practical deployment lessons that reduce vulnerabilities in smart workspaces.
+                </div>
+              </details>
+            </div>
+
+            <div class="tab-content" id="cs-obs" role="tabpanel" style="display:none;margin-top:10px">
+              <ul>
+                <li>Security is only as strong as its weakest integration point — APIs, file uploads, and third-party tools require scrutiny.</li>
+                <li>RBAC must be maintained and audited regularly to avoid privilege creep.</li>
+                <li>Logging is essential but must be stored securely and monitored to detect anomalies early.</li>
+              </ul>
+            </div>
+
+            <div class="tab-content" id="cs-eval" role="tabpanel" style="display:none;margin-top:10px">
+              <ul>
+                <li><strong>Security checklist:</strong> Verify password policies, hashing (bcrypt/PHP password_hash), session timeouts, and MFA implementation feasibility.</li>
+                <li><strong>Penetration testing:</strong> Schedule regular pen-tests focusing on CSV upload endpoints and authentication flows.</li>
+                <li><strong>Audit review:</strong> Periodic review of logs for unauthorized access attempts and anomalous behavior.</li>
+                <li><strong>Compliance mapping:</strong> Map data flows to privacy/regulatory requirements and document controls.</li>
+              </ul>
+
+              <div class="card-example" style="margin-top:10px">
+                <strong>Example:</strong> Logs Module records login attempts, IPs, and CRUD activity. RBAC checks on REST endpoints prevent unauthorized bulk imports or deletions.
+              </div>
+            </div>
+
           </div>
+        </div>
+      </article>
 
-          <!-- Slide 2: Algorithm & Attention  -->
-          <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/Jaron_Lanier', '_blank')">
-            <h3>2: Algorithm & Attention</h3>
-            <p>
-              Explains how persuasive design captures human attention and monetizes user behavior,
-              fueling the attention economy and addiction loops.
-            </p>
+      <!-- Industry 4.0 card (unchanged layout, content retained) -->
+      <article class="card fade-up" id="industry">
+        <div class="card-top" style="background:linear-gradient(135deg,var(--accent-purple-start),var(--accent-purple-end));">
+          <div class="icon-wrap" aria-hidden="true">
+            <!-- gauge icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3a9 9 0 100 18 9 9 0 000-18z" fill="#fff"/>
+              <path d="M7 14l5-5" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
           </div>
-
-          <!-- Slide 3: Human Cost -->
-          <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/Shoshana_Zuboff', '_blank')">
-            <h3>3: Human Cost</h3>
-            <p>
-              Connects digital surveillance and capitalism, showing how personal data collection
-              fuels manipulation and contributes to mental-health crises.
-            </p>
+          <div>
+            <h3>Industry 4.0 (Foundation)</h3>
+            <div style="font-size:13px;opacity:.95">Automation, centralization, and real-time monitoring shift HR from fragmented manual to integrated digital workflows.</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:6px">Click a tab below to explore Uses, Benefits, Literature, Observations, and Evaluation.</div>
           </div>
-
-          <!-- Slide 4: Insider Voices -->
-          <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
-            <h3>4: Insider Voices</h3>
-            <p>
-              Former tech engineers reveal how products are deliberately built to drive engagement and profit,
-              even when harmful.
-            </p>
-          </div>
-
-          <!-- Slide 5: Ethics & Regulation -->
-          <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
-            <h3>5: Ethics & Regulation</h3>
-            <p>
-              The film emphasizes the need for ethical tech design, transparency, and regulation to prevent
-              exploitation and misinformation.
-            </p>
-          </div>
-
-          <!-- Slide 6: Takeaway -->
-          <div class="slide" onclick="window.open('https://en.wikipedia.org/wiki/The_Social_Dilemma', '_blank')">
-            <h3>6: Takeaway</h3>
-            <p>
-              The documentary ends with practical advice: limit screen time, verify information, and demand
-              humane technology for the future.
-            </p>
-          </div>
-
         </div>
 
-      </main>
+        <div class="card-body">
+          <div class="dswrap">
+            <!-- Tabs -->
+            <div class="tabs" role="tablist" aria-label="Industry 4.0 sections">
+              <button class="tab active" data-tab="i4-uses" role="tab" aria-selected="true">Uses & Functions</button>
+              <button class="tab" data-tab="i4-benefits" role="tab">Importance & Benefits</button>
+              <button class="tab" data-tab="i4-lit" role="tab">Literature</button>
+              <button class="tab" data-tab="i4-obs" role="tab">Observations</button>
+              <button class="tab" data-tab="i4-eval" role="tab">Surveys & Evaluation</button>
+            </div>
 
-      <aside class="card">
-        <div class="poster" style="background-image:url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=60')"></div>
+            <!-- Tab content areas -->
+            <div class="tab-content" id="i4-uses" role="tabpanel" style="display:block;margin-top:10px">
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="6" rx="1" fill="#c4b5fd"/></svg></div>
+                  <div>
+                    <p class="mini-title">Automated Workflows</p>
+                    <p class="mini-desc">Automates scheduling, status updates, and candidate notifications to cut repetitive tasks.</p>
+                  </div>
+                </div>
 
-        <div class="right-list">
-          <div class="q">
-            <strong>Is the documentary accurate?</strong>
-            <p class="muted">The film highlights genuine issues, such as algorithmic targeting and the attention economy, which are well-documented in research. However, it should simplifies some cause-and-effect relationships so that viewers can understand them more easily</p>
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" fill="#ddd6fe"/></svg></div>
+                  <div>
+                    <p class="mini-title">Centralized DB</p>
+                    <p class="mini-desc">A single intranet database replaces multiple spreadsheets and paper forms for unified records.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Real-Time Monitoring</p>
+                    <p class="mini-desc">Instant pipeline updates, alerts and calendar sync keep HR and recruiters aligned.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="14" rx="2" fill="#efe9ff"/></svg></div>
+                  <div>
+                    <p class="mini-title">UI/UX Standardization</p>
+                    <p class="mini-desc">Consistent interfaces reduce training time and improve user adoption across HR teams.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow" aria-hidden="false">
+                <div class="step">Input (Form / CSV)</div><div class="arrow">→</div>
+                <div class="step">Digital Processing</div><div class="arrow">→</div>
+                <div class="step">Automation</div><div class="arrow">→</div>
+                <div class="step">Analytics & Monitoring</div><div class="arrow">→</div>
+                <div class="step">HR Decisions</div>
+              </div>
+            </div>
+
+            <div class="tab-content" id="i4-benefits" role="tabpanel" style="display:none;margin-top:10px">
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Operational Efficiency</p>
+                    <p class="mini-desc">Reduces manual steps and accelerates candidate throughput.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#6d28d9" stroke-width="1.6"/></svg></div>
+                  <div>
+                    <p class="mini-title">Scalability</p>
+                    <p class="mini-desc">Handles increased applicant volumes without adding manual overhead.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="6" rx="1" fill="#f3e8ff" opacity="0.12"/></svg></div>
+                  <div>
+                    <p class="mini-title">Data Traceability</p>
+                    <p class="mini-desc">Central logs and histories improve auditability and reporting.</p>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v7l5 2" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div>
+                    <p class="mini-title">Digital Maturity</p>
+                    <p class="mini-desc">Prepares HR for advanced automation and AI integration in later phases.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="insight">Key Insight: Industry 4.0 adoption in recruitment reduces fragmentation and enables faster, more reliable hiring workflows through automation and centralized systems.</div>
+            </div>
+
+            <div class="tab-content" id="i4-lit" role="tabpanel" style="display:none;margin-top:10px">
+              <p style="margin:0 0 8px 0;color:#374151;line-height:1.45">Selected literature from Google Scholar and peer-reviewed sources supporting Industry 4.0 and HR digital transformation:</p>
+
+              <div class="lit-list">
+                <div><strong>Bansal (2023)</strong> — HR digital transformation and the role of integrated workflows and automation in improving reliability and innovation. <a href="https://www.sciencedirect.com/science/article/pii/S0148296322010761" target="_blank" rel="noopener">ScienceDirect</a></div>
+                <div style="margin-top:6px"><strong>Mahmoud et al. (2025)</strong> — Evidence that digital HRM systems increase HR efficiency and organizational agility. <a href="https://link.springer.com/article/10.1007/s43621-025-01713-9" target="_blank" rel="noopener">Springer</a></div>
+                <div style="margin-top:6px"><strong>Rahadi et al. (2025)</strong> — Implementation lessons for digital HR tools that apply to smart workspaces and integrated systems. <a href="https://jtmt.utem.edu.my/jtmt/article/view/6105" target="_blank" rel="noopener">JTMT</a></div>
+                <div style="margin-top:6px"><strong>Ruiz, Marín &amp; Benítez (2024)</strong> — Analytics-driven HR strategies that support performance using integrated processes. <a href="https://doi.org/10.1016/j.im.2024.103966" target="_blank" rel="noopener">Information & Management (DOI)</a></div>
+              </div>
+
+              <details class="collapse" style="margin-top:10px">
+                <summary>Show short literature notes</summary>
+                <div class="content">
+                  <strong>Bansal (2023):</strong> highlights the need for workflow redesign and digital readiness to reap Industry 4.0 benefits.<br><br>
+                  <strong>Mahmoud et al. (2025):</strong> finds measurable efficiency gains when HR processes are centralized and digitized.<br><br>
+                  <strong>Rahadi et al. (2025):</strong> gives practical deployment advice for reducing friction in smart workplaces.
+                </div>
+              </details>
+            </div>
+
+            <div class="tab-content" id="i4-obs" role="tabpanel" style="display:none;margin-top:10px">
+              <ul>
+                <li>Change management is as important as technology — staff buy-in drives success.</li>
+                <li>Plan for server capacity and performance testing early to avoid bottlenecks.</li>
+                <li>Design integrations (calendar, notifications, AD/LDAP) at the start to reduce friction later.</li>
+              </ul>
+            </div>
+
+            <div class="tab-content" id="i4-eval" role="tabpanel" style="display:none;margin-top:10px">
+              <ul>
+                <li><strong>Workflow Efficiency Survey:</strong> Rate pre/post digitization workflow steps (1–5 scale).</li>
+                <li><strong>Process Step Count:</strong> Quantify manual step reductions after R-AMS.</li>
+                <li><strong>Load & Uptime Testing:</strong> Validate performance during bulk upload / peak times.</li>
+                <li><strong>User Readiness:</strong> Assess HR comfort with automated flows and identify training needs.</li>
+              </ul>
+
+              <div class="card-example" style="margin-top:10px">
+                <strong>Example:</strong> Walk-in applicant data entered once via the Applicant Web Form is instantly available across dashboards, schedules, and logs — eliminating paper and multiple spreadsheets.
+              </div>
+            </div>
+
           </div>
-
-          <div class="q">
-            <strong>What points to analyze?</strong>
-            <ul style="margin:6px 0 0 18px;color:var(--muted)">
-              <li>Regulation & policy options for platforms</li>
-              <li>Design ethics & persuasive technologies</li>
-              <li>Impact on younger users and mental health</li>
-              <li>Role of misinformation and political use</li>
-            </ul>
-          </div>
-
         </div>
-
-        <div style="margin-top:12px;color:var(--muted);font-size:0.85rem">Quick Q&A</div>
-        <div style="margin-top:8px;">
-        <div class="q">
-            <strong>Is it controversial?</strong>
-            <p class="muted">
-            Yes, we as a user simply get addictive to it and manipulated with how algorithm and design works..
-            Many educators, however, highlight the documentary’s value in raising awareness about social and psychological impacts, especially among younger audiences.
-            </p>
-        </div>
-
-        <!-- Chart 1: Young People Affected -->
-        <div class="q">
-            <strong>Impact on Young People</strong>
-            <canvas id="youthChart" width="320" height="220"></canvas>
-        </div>
-
-        <!-- Chart 2: Overall Social Media Effects -->
-        <div class="q">
-            <strong>Overall Social Media Effects</strong>
-            <canvas id="overallChart" width="320" height="220"></canvas>
-        </div>
-
-        <div class="q">
-            <strong>Teen Mental Health Trends (U.S.)</strong>
-            <p class="muted">Based on CDC data referenced in The Social Dilemma, showing rising rates of self-harm and suicide among teenage girls after 2010.</p>
-            <canvas id="suicideChart" width="340" height="220"></canvas>
-        </div>
-
-        </div>
-
-        
-
-      </aside>
-
+      </article>
+    <div class="footer fade-up" style="margin-top:18px; text-align:center; width:100%;">
+          Prepared by <strong>Daryl T. Roallos</strong> — Development of a Web-Based Recruitment and Applicant Management System (R-AMS) for XBP Global Company
     </div>
 
-    <footer>
-      <div class="muted">All images of characters link to Wikipedia for reference.</div>
-    </footer>
-  </div>
+  </main>
 
   <script>
-    function toggleNotes(){
-      document.querySelectorAll('.muted').forEach(el=>el.style.display = el.style.display === 'none' ? 'block' : 'none');
+    // fade-up appear
+    function showFadeUps(){
+      document.querySelectorAll('.fade-up').forEach((el, i)=>{
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 40){
+          setTimeout(()=>el.classList.add('show'), i*80);
+        }
+      });
     }
+    window.addEventListener('load', ()=> showFadeUps());
+    window.addEventListener('scroll', ()=> showFadeUps());
+
+    // Tab behavior
+    document.querySelectorAll(".card").forEach(card => {
+      const tabs = card.querySelectorAll(".tab");
+      const contents = card.querySelectorAll(".tab-content");
+
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+
+          // remove active from ONLY this card
+          tabs.forEach(t => t.classList.remove("active"));
+
+          // hide content ONLY inside this card
+          contents.forEach(c => c.style.display = "none");
+
+          // activate the selected tab
+          tab.classList.add("active");
+
+          // show matching content
+          const target = card.querySelector(`#${tab.dataset.tab}`);
+          if (target) target.style.display = "block";
+        });
+      });
+    });
+
+    // Allow keyboard navigation for tabs
+    const tabButtons = Array.from(document.querySelectorAll('.tab'));
+    tabButtons.forEach((tb, idx)=>{
+      tb.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') { tabButtons[(idx+1)%tabButtons.length].click(); }
+        if(e.key === 'ArrowLeft') { tabButtons[(idx-1+tabButtons.length)%tabButtons.length].click(); }
+      });
+    });
   </script>
-
-  <script>
-        // Chart 1: Youth Impact
-        const ctx1 = document.getElementById('youthChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'bar',
-            data: {
-            labels: ['Anxiety', 'Sleep Loss', 'Self-Esteem', 'FOMO', 'Depression'],
-            datasets: [{
-                label: 'Reported Impact (%)',
-                data: [68, 55, 61, 70, 52],
-                backgroundColor: 'rgba(255,107,107,0.8)',
-                borderRadius: 8
-            }]
-            },
-            options: {
-            plugins: { legend: { display: false }},
-            scales: {
-                y: { beginAtZero: true, ticks: { color: '#9aa4b2' }},
-                x: { ticks: { color: '#9aa4b2' }}
-            }
-            }
-        });
-
-        // Chart 2: Overall Social Media Effects
-        const ctx2 = document.getElementById('overallChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'doughnut',
-            data: {
-            labels: ['Negative Effects', 'Positive Effects'],
-            datasets: [{
-                data: [65, 35],
-                backgroundColor: ['rgba(255,107,107,0.8)', 'rgba(100,181,246,0.8)'],
-                borderWidth: 1
-            }]
-            },
-            options: {
-            plugins: {
-                legend: { labels: { color: '#9aa4b2' } }
-            }
-            }
-        });
-    </script>
-
-    <script>
-        const ctx3 = document.getElementById('suicideChart').getContext('2d');
-        new Chart(ctx3, {
-            type: 'line',
-            data: {
-            labels: ['2001', '2004', '2007', '2010', '2013', '2016', '2019', '2022'],
-            datasets: [
-                {
-                label: 'Self-Harm (Girls 15–19)',
-                data: [100, 105, 110, 130, 170, 190, 210, 220],
-                borderColor: 'rgba(255,107,107,0.9)',
-                backgroundColor: 'rgba(255,107,107,0.3)',
-                tension: 0.3,
-                fill: true
-                },
-                {
-                label: 'Suicide (Girls 15–19)',
-                data: [100, 102, 108, 120, 140, 160, 175, 180],
-                borderColor: 'rgba(255,193,7,0.9)',
-                backgroundColor: 'rgba(255,193,7,0.3)',
-                tension: 0.3,
-                fill: true
-                }
-            ]
-            },
-            options: {
-            plugins: {
-                title: {
-                display: true,
-                text: 'Rising Self-Harm & Suicide Rates (Teen Girls)',
-                color: '#e6eef6',
-                font: { size: 14 }
-                },
-                legend: {
-                labels: { color: '#9aa4b2' }
-                }
-            },
-            scales: {
-                y: {
-                beginAtZero: false,
-                ticks: { color: '#9aa4b2' },
-                grid: { color: 'rgba(255,255,255,0.05)' }
-                },
-                x: {
-                ticks: { color: '#9aa4b2' },
-                grid: { color: 'rgba(255,255,255,0.05)' }
-                }
-            }
-            }
-        });
-    </script>
-
 </body>
 </html>
