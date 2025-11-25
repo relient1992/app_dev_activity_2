@@ -1,0 +1,252 @@
+  :root{
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --muted:#363a44;
+    --shadow: 0 6px 18px rgba(15,23,42,0.08);
+    --accent-blue-start:#60a5fa;
+    --accent-blue-end:#3b82f6;
+    --accent-green-start:#34d399;
+    --accent-green-end:#10b981;
+    --accent-purple-start:#a78bfa;
+    --accent-purple-end:#7c3aed;
+    --accent-indigo-start:#6366f1;
+    --accent-indigo-end:#7c3aed;
+    --maxw:1100px;
+    --glass: rgba(255,255,255,0.85);
+  }
+
+  /* baseline */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
+    background:linear-gradient(180deg,#ffffff 0%, #f1f5f9 100%);
+    color:#111827;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:28px 18px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .container{width:100%;max-width:var(--maxw);}
+
+  /* HERO */
+  .hero{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(15,23,42,0.03);
+    overflow:hidden;
+  }
+  .hero-left{width:72px;height:72px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef2ff,#eef7ff);flex-shrink:0;}
+  .hero-title{font-size:20px;font-weight:800;margin:0}
+  .hero-sub{margin:6px 0 0;color:var(--muted);font-size:13px}
+  .hero-blurb{margin-top:10px;color:#374151;line-height:1.45;font-size:14px}
+
+  .cta{margin-left:auto}
+  .btn{
+    background:linear-gradient(90deg,var(--accent-indigo-start),var(--accent-indigo-end));
+    color:white;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600;
+    box-shadow:0 6px 18px rgba(99,102,241,0.14);transition:transform .15s ease,box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(99,102,241,0.12)}
+  .btn:active{transform:translateY(-1px)}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;}
+  @media(min-width:980px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+  /* CARD - used for main content panels (data/security/industry) */
+  .card{
+    background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(15,23,42,0.03);
+    transition:transform .18s, box-shadow .18s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(15,23,42,0.08)}
+
+  .card-top{padding:16px;color:white;display:flex;gap:12px;align-items:flex-start}
+  .icon-wrap{width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center}
+  .card-body{padding:16px;background:var(--card);color:#374151}
+  .card-body ul{padding-left:18px;margin:8px 0 12px;color:#374151}
+  .card-example{background:#f8fafc;border-radius:10px;padding:10px;border:1px solid rgba(15,23,42,0.03);font-size:13px;color:#374151}
+
+  /* DATA SCIENCE IMPROVED LAYOUT (tabs + mini-cards) */
+  .dswrap{display:flex;flex-direction:column;gap:12px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{
+    padding:8px 12px;border-radius:999px;background:transparent;border:1px solid rgba(15,23,42,0.06);cursor:pointer;font-weight:600;font-size:13px;color:#111827;
+    transition:all .16s;
+  }
+  .tab.active{background:linear-gradient(90deg,var(--accent-blue-start),var(--accent-blue-end));color:white;border-color:transparent;box-shadow:0 8px 20px rgba(59,130,246,0.12)}
+  .tab:focus{outline:2px solid rgba(59,130,246,0.18)}
+
+  /* mini-grid cards used inside each tab (two-column layout) */
+  .mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+  @media(max-width:640px){ .mini-grid{grid-template-columns:1fr} }
+
+  .mini-card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.92));
+    border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(15,23,42,0.03);
+  }
+  .mini-icon{width:40px;height:40;border-radius:8px;background:rgba(99,102,241,0.08);display:flex;align-items:center;justify-content:center}
+  .mini-title{font-weight:700;font-size:14px;margin:0}
+  .mini-desc{font-size:13px;color:#374151;margin:4px 0 0 0}
+
+  .flow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .flow .step{background:#fff;border-radius:8px;padding:8px 12px;border:1px dashed rgba(15,23,42,0.06);font-weight:600;font-size:13px;color:#374151}
+  .arrow{font-weight:800;color:rgba(15,23,42,0.35)}
+
+  .insight{
+    margin-top:10px;border-radius:10px;padding:12px;background:linear-gradient(90deg, rgba(59,130,246,0.08), rgba(124,58,237,0.06));
+    border:1px solid rgba(59,130,246,0.08);color:#0f172a;font-weight:600;
+  }
+
+  .lit-list{margin-top:8px;font-size:13px;color:#374151}
+  .lit-list a{color:var(--accent-indigo-start);text-decoration:underline}
+
+  .collapse{margin-top:8px}
+  .collapse summary{font-weight:700;cursor:pointer;padding:8px;list-style:none;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:linear-gradient(180deg,#fff,#fbfdff)}
+  .collapse[open] summary{background:linear-gradient(90deg,var(--accent-blue-start),var(--accent-blue-end));color:white;border-color:transparent}
+  .collapse .content{padding:10px 8px;background:transparent;border-radius:8px;font-size:13px;color:#374151}
+
+  /* small blocks grid (summary area) - we will use summary-card instead of card for these */
+  .small-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:12px}
+  @media(min-width:980px){ .small-grid{grid-template-columns:repeat(3,1fr)} }
+
+  .footer{margin-top:20px;text-align:center;color:var(--muted);font-size:13px}
+
+  /* Animations */
+  .fade-up{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+  .fade-up.show{opacity:1;transform:none}
+  .fade-scale{transform:scale(.98);transition:transform .25s}
+  .fade-scale.show{transform:none}
+
+  /* responsive tweaks */
+  @media(max-width:640px){
+    .hero{flex-direction:column;align-items:flex-start}
+    .cta{margin-left:0;width:100%}
+    .btn{width:100%}
+  }
+
+  /* -------------------------
+     Additions: equal-height mini-cards
+     and description line-clamp
+     (appended — do not remove existing rules)
+     ------------------------- */
+
+  /* Force mini-grid rows to be uniform height so mini-cards align visually row-by-row */
+  .mini-grid {
+    grid-auto-rows: 1fr;
+  }
+
+  /* Make each mini-card fill its grid cell and layout content vertically */
+  .mini-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+
+  /* Allow the description to take remaining vertical space and clamp long text */
+  .mini-desc {
+  display: block;
+  white-space: normal;
+  overflow: visible; 
+  text-overflow: unset;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  }
+
+  /* Ensure titles remain tidy */
+  .mini-title { margin: 0 0 6px 0; line-height: 1.15; }
+
+  /* Keep flow area visual separation consistent */
+  .flow { margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+  /* Keep the tabbed cards readable at larger viewports */
+  @media(min-width:900px){
+    .card-body {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  /* -------------------------
+     Summary-card: isolated styles (Option A)
+     These replace the small-grid's use of .card/.card-body
+     ------------------------- */
+
+  /* Basic visual style similar to .card but separate class so no layout bleed */
+  .summary-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(15,23,42,0.03);
+    overflow: visible;
+  }
+
+  /* content wrapper for summary cards */
+  .summary-body {
+    padding: 16px;
+    color: #374151;
+    display: block;
+    min-height: 0;
+  }
+
+  /* equal column layout on wide screens for summary cards */
+  @media(min-width:980px){
+    .small-grid {
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+    .small-grid .summary-card {
+      flex: 1 1 0%;
+      min-width: 0; /* allow inner content to shrink/wrap correctly */
+    }
+
+    /* allow text to use the card's full width (remove earlier max-width clamping) */
+    .small-grid .summary-body p,
+    .small-grid .summary-body ul {
+      max-width: none;
+      margin: 0 0 8px 0;
+      line-height: 1.45;
+    }
+
+    .small-grid .summary-body h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+  }
+
+  /* stacked (mobile) behavior for summary cards - keep consistent spacing */
+  @media(max-width:979px){
+    .small-grid { display:block; }
+    .small-grid .summary-card { margin-bottom:12px; }
+  }
+
+  /* fallback small-grid specificity (keeps existing .card usage safe if any remain)
+     these are lower-risk safety nets — but prefer using summary-card in HTML */
+  .small-grid .card {
+    align-self: start;
+  }
+  .small-grid .card-body {
+    min-height: 0;
+    display: block;
+    padding: 16px;
+  }
+
+  /* readability helpers for tab panels and mini-cards */
+  .mini-card .mini-desc { color: #374151; }
+  .insight { margin-top:10px; }
