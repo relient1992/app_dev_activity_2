@@ -60,7 +60,7 @@
 
   /* Grid */
   .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;}
-  @media(min-width:980px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  @media(min-width:980px){ .grid{grid-template-columns:repeat(4,1fr)} }
 
   /* CARD - used for main content panels (data/security/industry) */
   .card{
@@ -250,3 +250,57 @@
   /* readability helpers for tab panels and mini-cards */
   .mini-card .mini-desc { color: #374151; }
   .insight { margin-top:10px; }
+
+  .findings-list {
+  font-size: 13px;     /* adjust as needed */
+  line-height: 1.45;
+  color: #374151;      /* optional: match your theme */
+  margin-left: 16px;   /* keeps alignment consistent */
+}
+
+@media (min-width: 1200px) {
+  :root { --maxw: 1400px; } /* increase from 1100px -> 1400px; adjust to taste (1300-1600) */
+}
+
+/* 2) Use 4 equal columns on large screens (desktop) and give them some min width */
+@media (min-width: 980px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* safe 4-column layout */
+    gap: 22px; /* slightly bigger gap */
+  }
+}
+
+/* 3) Make each card taller so they visually fill vertical space */
+@media (min-width: 900px) {
+  .card-body {
+    min-height: 420px; /* makes content area taller and consistent */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* keep mini-card blocks aligned at bottom if content shorter */
+  .mini-grid { align-items: stretch; }
+}
+
+/* 4) Narrow page side gutters by reducing body padding on very large screens */
+@media (min-width: 1400px) {
+  body { padding-left: 20px; padding-right: 20px; } /* reduces outer whitespace */
+  .container { padding-left: 8px; padding-right: 8px; }
+}
+
+/* 5) Slightly increase card padding and title size for better readability on large screens */
+@media (min-width: 1100px) {
+  .card { border-radius: 16px; }
+  .card-body { padding: 20px; }
+  .card-top { padding: 18px; }
+  .hero-title { font-size: 22px; }
+}
+
+/* 6) When you want cards to visually exceed the page column flow,
+   you can also allow the grid to stretch to container edges */
+.container { width: calc(100% - 48px); max-width: var(--maxw); }
+
+/* ---------- Optional: reduce side whitespace inside each card (visual) ---------- */
+.card-top, .card-body { padding-left: 18px; padding-right: 18px; }
+
